@@ -1,0 +1,186 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { add } from "../Store/cartSlice";
+import { fetchProducts } from "../Store/productSlice";
+import { STATUSES } from "../Store/productSlice";
+
+const ProductList = ({ searchTerm }) => {
+  // const [searchTerm, setSearchTerm] = useState("null");
+  const dispatch = useDispatch();
+  const { data: products, status } = useSelector((state) => state.product);
+  console.log(products);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const handleAdd = (product) => {
+    dispatch(add(product));
+  };
+
+  const handlePriceRangeChange = (category) => {
+    console.log(category);
+    debugger
+    const updatedCategories = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
+
+    setSelectedCategories(updatedCategories);
+  };
+
+  const filterByCategory = (item) => {
+    if (selectedCategories.length === 0) {
+      return true;
+    } else {
+      return selectedCategories.includes(item.category);
+    }
+  };
+
+  const getPriceCategory = (price) => {
+    if (price <= 0) {
+      return "0";
+    } else if (price <= 100) {
+      return "100";
+    } else if (price <= 500) {
+      return "500";
+    } else {
+      return "1000";
+    }
+  };
+  const filterBySearchTerm = (item) => {
+    const itemName = item.title ? item.title.toLowerCase() : "";
+    return itemName.includes(searchTerm.toLowerCase());
+  };
+  if (status === STATUSES.LOADING) {
+    return <h2>Loading....</h2>;
+  }
+
+  if (status === STATUSES.ERROR) {
+    return <h2>Something went wrong!</h2>;
+  }
+
+  return (
+    <>
+      {/* <div className="h-screen bg-red-500 w2/4">Filter</div> */}
+
+      <div className="container mx-auto p-8">
+        <div className="flex place-items-end w-11/11 p-4 border-b border-gray-500 bg-slate-100 relative shadow-md mb-4 ml-36">
+          <div
+            className="absolute left-0 top-0 h-full bg-red-500"
+            style={{ width: "8px" }}
+          ></div>
+          <h3 className="text-black opacity-40 font-semibold uppercase tracking-wider text-2xl ml-2">
+            SEARCH RESULTS:
+          </h3>
+        </div>
+
+        <div className="flex justify-between gap-4">
+          <aside className="w-[30rem]">
+            <h2 className="text-lg font-semibold mb-4">Filter By Price</h2>
+            <div>
+              <label className="block mb-2">
+                <input
+                  className="mr-2"
+                  name="0"
+                  type="checkbox"
+                  onChange={() => handlePriceRangeChange("0")}
+                />
+                Above 0 
+              </label>
+              <label className="block mb-2">
+                <input
+                  className="mr-2"
+                  name="100"
+                  type="checkbox"
+                  onChange={() => handlePriceRangeChange("100")}
+                />
+                above 100 
+              </label>
+              <label className="block mb-2">
+                <input
+                  className="mr-2"
+                  name="500"
+                  type="checkbox"
+                  onChange={() => handlePriceRangeChange("500")}
+                />
+                above 500
+              </label>
+              <label className="block mb-2">
+                <input
+                  className="mr-2"
+                  name="1000"
+                  type="checkbox"
+                  onChange={() => handlePriceRangeChange("1000")}
+                />
+                above 1000
+              </label>
+            </div>
+          </aside>
+          {/* <div></div> */}
+          <div className="flex justify-between">
+            <div className="w-4/3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+              {Array.isArray(products?.products) &&
+                products?.products
+                  .filter(filterByCategory)
+                  .filter(filterBySearchTerm)
+                  .map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-lg shadow-md overflow-visible relative rounded-8  transition-all duration-300 ease-in-out"
+                    >
+                      <div className="absolute left-[-4px] top-[1.6rem] bg-F94E30 text-white text-sm uppercase px-4 py-2 shadow-md bg-indigo-500">
+                        {item.brand}
+                      </div>
+                      <div className="w-full h-52">
+                        <img
+                          src={item.thumbnail}
+                          className="w-full h-full object-cover"
+                          alt={item.title}
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h4 className="text-xl font-semibold mb-2 text-center">
+                          {item.title}
+                        </h4>
+                        <p className="font-semibold mb-2 text-gray-500 text-1xl">
+                          {item.description}
+                        </p>
+
+                        <div className="flex justify-between">
+                          <span className="text-gray-700 font-semibold ">
+                            Rating: {item.rating}⭐⭐⭐⭐
+                          </span>
+                          <span className="text-gray-700 font-semibold">
+                            Stock: {item.stock}
+                          </span>
+                        </div>
+                        <p className="text-gray-700 mb-2 text-center flex justify-between">
+                          <ins className="font-semibold">
+                            Price: ${item.price}
+                          </ins>
+                          <del className="text-red-500 pl-2">
+                            {item.discountPercentage}% Off
+                          </del>
+                        </p>
+
+                        <div>
+                          <button
+                            onClick={() => handleAdd(item)}
+                            className="mt-4 py-2 px-4 bg-orange-500 text-white rounded-full focus:outline-none focus:shadow-outline-blue"
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ProductList;
