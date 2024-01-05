@@ -77,7 +77,7 @@ const ProductList = ({ searchTerm }) => {
             className="absolute left-0 top-0 h-full bg-indigo-500"
             style={{ width: "8px" }}
           ></div>
-          <h3 className="text-black opacity-40 font-semibold uppercase tracking-wider text-2xl ml-2">
+          <h3 className="text-black opacity-40 font-semibold uppercase tracking-wider text-base ml-2">
             SEARCH RESULTS:
           </h3>
         </div>
