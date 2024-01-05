@@ -15,7 +15,7 @@ function HomePage() {
           <div>
             <p className="text-center">Welcome, {localStorage.getItem('user')}</p>
             <div className="mt-4">
-              <Logout />
+              <Logout  />
             </div>
           </div>
         ) : (

@@ -6,6 +6,7 @@ import Cart from "./Pages/Cart";
 import LoginPage from "./Component/LoginPage";
 // import { saveToken } from "./Store/authSlice";
 import Navbar from "./Component/Navbar";
+import { loginSuccess } from "./Store/authSlice";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -16,11 +17,10 @@ function App() {
     const token = localStorage.getItem('token');
 
     if (token) {
-      // Dispatch action to save the token in the Redux store
-      // dispatch(saveToken(token));
+      dispatch(loginSuccess(token));
     }
-  }, [dispatch]);
-
+  }, []);
+debugger
   return (
     <>
       <BrowserRouter>

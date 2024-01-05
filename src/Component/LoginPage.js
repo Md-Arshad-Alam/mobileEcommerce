@@ -17,7 +17,7 @@ function LoginPage() {
       if (response.token) {
         localStorage.setItem('user', username);
         localStorage.setItem('token', response.token);
-        dispatch(loginSuccess(response));
+        dispatch(loginSuccess(response.token));
       } else {
         dispatch(loginFailure(response));
       }
@@ -27,9 +27,9 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 text-black p-4">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">Welcome to Shopy Website</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Welcome to Shopy Website</h2>
         <ins className="block text-center font-bold text-2xl mb-10">Please Login</ins>
 
         <form onSubmit={handleLogin}>
@@ -58,6 +58,7 @@ function LoginPage() {
             Login
           </button>
         </form>
+        
       </div>
     </div>
   );

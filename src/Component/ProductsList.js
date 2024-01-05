@@ -19,34 +19,41 @@ const ProductList = ({ searchTerm }) => {
     dispatch(add(product));
   };
 
-  const handlePriceRangeChange = (category) => {
-    console.log(category);
-    debugger
-    const updatedCategories = selectedCategories.includes(category)
-      ? selectedCategories.filter((c) => c !== category)
-      : [...selectedCategories, category];
+ const handlePriceRangeChange = (range) => {
+ 
+    if (selectedCategories.includes(range)) {
+      setSelectedCategories(selectedCategories.filter((category) => category !== range));
+   } else {
+      setSelectedCategories([...selectedCategories, range]);
+      fetchProducts()
+   }
+  
 
-    setSelectedCategories(updatedCategories);
-  };
+};
+  
 
-  const filterByCategory = (item) => {
-    if (selectedCategories.length === 0) {
-      return true;
-    } else {
-      return selectedCategories.includes(item.category);
-    }
-  };
+  // const filterByCategory = (item) => {
+  //   if (selectedCategories.length === 0) {
+  //     return true;
+  //   } else {
+  //     return selectedCategories.includes(item.category);
+  //   }
+  // };
 
   const getPriceCategory = (price) => {
     if (price <= 0) {
-      return "0";
+      return "0-100";
     } else if (price <= 100) {
-      return "100";
+      return "0-100";
     } else if (price <= 500) {
-      return "500";
-    } else {
-      return "1000";
+      return "100-500";
+    } else if(price <=1000) {
+      return "500-1000";
     }
+    else{
+      return "1000"
+    }
+    
   };
   const filterBySearchTerm = (item) => {
     const itemName = item.title ? item.title.toLowerCase() : "";
@@ -67,7 +74,7 @@ const ProductList = ({ searchTerm }) => {
       <div className="container mx-auto p-8">
         <div className="flex place-items-end w-11/11 p-4 border-b border-gray-500 bg-slate-100 relative shadow-md mb-4 ml-36">
           <div
-            className="absolute left-0 top-0 h-full bg-red-500"
+            className="absolute left-0 top-0 h-full bg-indigo-500"
             style={{ width: "8px" }}
           ></div>
           <h3 className="text-black opacity-40 font-semibold uppercase tracking-wider text-2xl ml-2">
@@ -77,39 +84,44 @@ const ProductList = ({ searchTerm }) => {
 
         <div className="flex justify-between gap-4">
           <aside className="w-[30rem]">
-            <h2 className="text-lg font-semibold mb-4">Filter By Price</h2>
+            <h2 className="text-lg font-semibold mb-4 px-3  border-gray-500 bg-slate-200">Filter By Price</h2>
             <div>
-              <label className="block mb-2">
+            <label className="block mb-2">
                 <input
                   className="mr-2"
-                  name="0"
+                  name="0-100"
+                  value="0-100"
                   type="checkbox"
-                  onChange={() => handlePriceRangeChange("0")}
+                  onChange={() => handlePriceRangeChange("0-100")}
                 />
-                Above 0 
+                0 - 100 
               </label>
               <label className="block mb-2">
                 <input
                   className="mr-2"
-                  name="100"
+                  name="100-500"
+                  value="100-500"
                   type="checkbox"
-                  onChange={() => handlePriceRangeChange("100")}
+                  onChange={() => handlePriceRangeChange("100-500")}
                 />
-                above 100 
+             100 - 500
               </label>
+            
               <label className="block mb-2">
                 <input
                   className="mr-2"
-                  name="500"
+                  name="500-1000"
+                  value="500-1000"
                   type="checkbox"
-                  onChange={() => handlePriceRangeChange("500")}
+                  onChange={() => handlePriceRangeChange("500-1000")}
                 />
-                above 500
+               500 - 1000
               </label>
               <label className="block mb-2">
                 <input
                   className="mr-2"
                   name="1000"
+                  value="1000"
                   type="checkbox"
                   onChange={() => handlePriceRangeChange("1000")}
                 />
@@ -122,7 +134,7 @@ const ProductList = ({ searchTerm }) => {
             <div className="w-4/3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
               {Array.isArray(products?.products) &&
                 products?.products
-                  .filter(filterByCategory)
+                .filter((item) => selectedCategories.length ? selectedCategories.includes(getPriceCategory(item.price)) : item)
                   .filter(filterBySearchTerm)
                   .map((item) => (
                     <div
