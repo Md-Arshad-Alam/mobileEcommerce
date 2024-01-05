@@ -84,7 +84,7 @@ const ProductList = ({ searchTerm }) => {
 
         <div className="flex justify-between gap-4">
           <aside className="w-[30rem]">
-            <h2 className="text-lg font-semibold mb-4 px-3  border-gray-500 bg-slate-200">Filter By Price</h2>
+            <h2 className="text-lg font-semibold mb-4 px-2  border-gray-500 bg-slate-200">Filter By Price</h2>
             <div>
             <label className="block mb-2">
                 <input

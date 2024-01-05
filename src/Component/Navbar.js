@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className="flex items-center space-x-4">
         <Link to="/cart" className="hover:text-gray-300">
             <span className="font-bold relative fa-solid fa-cart-shopping text-xl">
-              <i className="before:absolute before:w-5 before:h-5 before:bg-indigo-500 before:border-2  before:rounded-full before:-right-1 before:-top-3 "></i>
+              <i className="before:absolute before:w-5 before:h-5 before:bg-purple-500 before:border-2  before:rounded-full before:-right-1 before:-top-3 "></i>
               <span className="absolute left-3 -top-2 text-xs text-white ">
                 {" "}
                 {items.length}

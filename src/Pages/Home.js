@@ -17,8 +17,8 @@ const Home = () => {
         </h2> */}
 
         <section className="bg-white p-6 rounded-lg shadow-lg">
-          <div className="w-3/5 flex justify-between align-middle ml-20 ">
-            <h3 className="text-2xl font-bold mb-4 w-2/5 text-indigo-500">Products</h3>
+          <div className="w-4/5 flex justify-between align-middle ml-20 ">
+            <h3 className="text-2xl font-bold mb-4 w-2/5 text-indigo-500 ml-4">Products</h3>
             <input className="text-lg w-4/5 border-indigo-500 bg-slate-200 pl-6 outline-none rounded-lg" type="text" placeholder="Search Your preferred Items here " onChange={(e) => searchProduct(e)}/>
           </div>
       
