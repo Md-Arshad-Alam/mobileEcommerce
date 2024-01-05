@@ -16,7 +16,7 @@ const NavBar = () => {
 
   return (
     <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+      <div className="flex justify-between items-center max-w-7xl mx-auto place-items-center">
         <Link to="/home" className="text-3xl font-bold text-white">
           Shopsy
         </Link>
@@ -36,7 +36,7 @@ const NavBar = () => {
 
           <button
             onClick={logOutBtn}
-            className="flex items-center px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-full focus:outline-none focus:shadow-outline-blue"
+            className="flex items-center px-4 py-2 text-white bg-indigo-600 hover:bg-orange-600 rounded-full focus:outline-none focus:shadow-outline-blue"
           >
             Logout
             <i className="fas fa-sign-out-alt ml-2"></i>

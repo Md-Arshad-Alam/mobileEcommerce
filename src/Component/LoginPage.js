@@ -7,6 +7,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,19 +19,22 @@ function LoginPage() {
         localStorage.setItem('user', username);
         localStorage.setItem('token', response.token);
         dispatch(loginSuccess(response.token));
+       
       } else {
         dispatch(loginFailure(response));
       }
     } catch (error) {
       dispatch(loginFailure({ error: 'An error occurred during login.' }));
+      setLoginError('An error occurred during login. Please try again.');
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 text-black p-4">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6">Welcome to Shopy Website</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Welcome to Shopsy Website</h2>
         <ins className="block text-center font-bold text-2xl mb-10">Please Login</ins>
+        {loginError && <p className="text-red-500 text-center mb-4">{loginError}</p>}
 
         <form onSubmit={handleLogin}>
           <label className="block mb-4">
