@@ -53,7 +53,7 @@ const Cart = () => {
                   className="w-full h-32 object-cover object-center rounded-l-lg"
                 />
               </div>
-              <div className="w-3/4 p-4 flex justify-center align-middle">
+              <div className="w-3/4 p-4 flex justify-center align-middle place-items-center">
                 <div className="w-1/2">
                   <h5 className="text-lg font-semibold mb-2">
                     {product.title}
@@ -62,15 +62,15 @@ const Cart = () => {
                     <b>Price:</b> ${product.price}
                   </p>
                 </div>
-                <div className="w-1/2 flex items-center justify-center">
+                <div className="w-1/2 flex items-center justify-center place-items-center">
                   <button
-                    className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition"
+                    className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
                     onClick={() => handleRemove(product.id, product.price)}
                   >
                     Remove
                   </button>
                 </div>
-                <div className="mt-2 w-full flex items-center justify-between">
+                <div className="w-full flex items-center justify-between place-items-center">
                   <div className="flex items-center">
                     <button
                       className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition"
@@ -98,10 +98,10 @@ const Cart = () => {
 
        {items.length >0 && <div className="flex justify-between items-baseline bg-slate-100 border-2 pr-6 text-right p-2">
           <button
-            className="flex items-center text-red-500 border-red-500 "
+            className="flex items-center text-red-500 border-red-500  bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
             onClick={clearAllProduct}
           >
-            <FaTrash className="mr-2" />
+            <FaTrash className="mr-2 " />
             Clear All
           </button>
           <div className="flex flex-col items-end flex-1">
