@@ -22,7 +22,7 @@ const NavBar = () => {
             Shopsy
           </Link>
         </div>
-        <h2 className="text-3xl font-bold text-center md:hidden">
+        <h2 className="text-3xl font-bold text-center">
           Welcome to the Shopsy App
         </h2>
         <div className="flex items-center space-x-4 mt-4 md:mt-0">

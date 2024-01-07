@@ -96,9 +96,11 @@ const Cart = () => {
         </div>
         )}
 
-       {items.length >0 && <div className="flex justify-between items-baseline bg-slate-100 border-2 pr-6 text-right p-2">
+       {
+       items.length >0 && 
+       <div className="flex justify-between  bg-slate-100 border-2 pr-6 text-right p-2 place-items-center">
           <button
-            className="flex items-center text-red-500 border-red-500  bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
+            className="flex items-center border-red-500  bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
             onClick={clearAllProduct}
           >
             <FaTrash className="mr-2 " />
@@ -112,7 +114,8 @@ const Cart = () => {
               Check out
             </button>
           </div>
-        </div>}
+        </div>
+        }
       </div>
     </>
   );
