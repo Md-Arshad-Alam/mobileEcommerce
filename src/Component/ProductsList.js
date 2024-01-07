@@ -19,18 +19,16 @@ const ProductList = ({ searchTerm }) => {
     dispatch(add(product));
   };
 
- const handlePriceRangeChange = (range) => {
- 
+  const handlePriceRangeChange = (range) => {
     if (selectedCategories.includes(range)) {
-      setSelectedCategories(selectedCategories.filter((category) => category !== range));
-   } else {
+      setSelectedCategories(
+        selectedCategories.filter((category) => category !== range)
+      );
+    } else {
       setSelectedCategories([...selectedCategories, range]);
-      fetchProducts()
-   }
-  
-
-};
-  
+      fetchProducts();
+    }
+  };
 
   // const filterByCategory = (item) => {
   //   if (selectedCategories.length === 0) {
@@ -47,13 +45,11 @@ const ProductList = ({ searchTerm }) => {
       return "0-100";
     } else if (price <= 500) {
       return "100-500";
-    } else if(price <=1000) {
+    } else if (price <= 1000) {
       return "500-1000";
+    } else {
+      return "1000";
     }
-    else{
-      return "1000"
-    }
-    
   };
   const filterBySearchTerm = (item) => {
     const itemName = item.title ? item.title.toLowerCase() : "";
@@ -84,9 +80,11 @@ const ProductList = ({ searchTerm }) => {
 
         <div className="flex justify-between gap-4">
           <aside className="w-[30rem]">
-            <h2 className="text-lg font-semibold mb-4 px-2  border-gray-500 bg-slate-200">Filter By Price</h2>
+            <h2 className="text-lg font-semibold mb-4 px-2  border-gray-500 bg-slate-200">
+              Filter By Price
+            </h2>
             <div>
-            <label className="block mb-2">
+              <label className="block mb-2">
                 <input
                   className="mr-2"
                   name="0-100"
@@ -94,7 +92,7 @@ const ProductList = ({ searchTerm }) => {
                   type="checkbox"
                   onChange={() => handlePriceRangeChange("0-100")}
                 />
-                0 - 100 
+                0 - 100
               </label>
               <label className="block mb-2">
                 <input
@@ -104,9 +102,9 @@ const ProductList = ({ searchTerm }) => {
                   type="checkbox"
                   onChange={() => handlePriceRangeChange("100-500")}
                 />
-             100 - 500
+                100 - 500
               </label>
-            
+
               <label className="block mb-2">
                 <input
                   className="mr-2"
@@ -115,7 +113,7 @@ const ProductList = ({ searchTerm }) => {
                   type="checkbox"
                   onChange={() => handlePriceRangeChange("500-1000")}
                 />
-               500 - 1000
+                500 - 1000
               </label>
               <label className="block mb-2">
                 <input
@@ -134,7 +132,13 @@ const ProductList = ({ searchTerm }) => {
             <div className="w-4/3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
               {Array.isArray(products?.products) &&
                 products?.products
-                .filter((item) => selectedCategories.length ? selectedCategories.includes(getPriceCategory(item.price)) : item)
+                  .filter((item) =>
+                    selectedCategories.length
+                      ? selectedCategories.includes(
+                          getPriceCategory(item.price)
+                        )
+                      : item
+                  )
                   .filter(filterBySearchTerm)
                   .map((item) => (
                     <div
@@ -147,15 +151,15 @@ const ProductList = ({ searchTerm }) => {
                       <div className="w-full h-52">
                         <img
                           src={item.thumbnail}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover "
                           alt={item.title}
                         />
                       </div>
                       <div className="p-4">
-                        <h4 className="text-xl font-semibold mb-2 text-center">
+                        <h4 className="text-xl font-semibold mb-2 text-center line-clamp-1">
                           {item.title}
                         </h4>
-                        <p className="font-semibold mb-2 text-gray-500 text-1xl">
+                        <p className="font-semibold mb-2 text-gray-500 text-1xl text-center line-clamp-1">
                           {item.description}
                         </p>
 
@@ -167,7 +171,7 @@ const ProductList = ({ searchTerm }) => {
                             Stock: {item.stock}
                           </span>
                         </div>
-                        <p className="text-gray-700 mb-2 text-center flex justify-between">
+                        <p className="text-gray-700 mb-2 text-center flex justify-between mt-2">
                           <ins className="font-semibold">
                             Price: ${item.price}
                           </ins>
@@ -176,10 +180,10 @@ const ProductList = ({ searchTerm }) => {
                           </del>
                         </p>
 
-                        <div>
+                        <div className="flex justify-between place-items-center">
                           <button
                             onClick={() => handleAdd(item)}
-                            className="mt-4 py-2 px-4 bg-orange-500 text-white rounded-full focus:outline-none focus:shadow-outline-blue"
+                            className=" mt-4 py-2 px-4 bg-orange-500 text-white rounded-full focus:outline-none focus:shadow-outline-blue"
                           >
                             Add to Cart
                           </button>

@@ -15,18 +15,20 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4">
-      <div className="flex justify-between items-center max-w-7xl mx-auto place-items-center">
-        <Link to="/home" className="text-3xl font-bold text-white">
-          Shopsy
-        </Link>
-        <h2 className="text-3xl font-bold text-center">
+    <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 shadow-lg">
+      <div className="flex flex-col items-center justify-between max-w-7xl mx-auto place-items-center md:flex-row">
+        <div className="mb-4 md:mb-0">
+          <Link to="/home" className="text-3xl font-bold text-white">
+            Shopsy
+          </Link>
+        </div>
+        <h2 className="text-3xl font-bold text-center md:hidden">
           Welcome to the Shopsy App
         </h2>
-        <div className="flex items-center space-x-4">
-        <Link to="/cart" className="hover:text-gray-300">
+        <div className="flex items-center space-x-4 mt-4 md:mt-0">
+          <Link to="/cart" className="hover:text-gray-300">
             <span className="font-bold relative fa-solid fa-cart-shopping text-xl">
-              <i className="before:absolute before:w-5 before:h-5 before:bg-purple-500 before:border-2  before:rounded-full before:-right-1 before:-top-3 "></i>
+              <i className="before:absolute before:w-5 before:h-5 before:bg-purple-500 before:border-2 before:rounded-full before:-right-1 before:-top-3 "></i>
               <span className="absolute left-3 -top-2 text-xs text-white ">
                 {" "}
                 {items.length}

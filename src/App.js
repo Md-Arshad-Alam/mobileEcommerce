@@ -20,22 +20,12 @@ function App() {
       dispatch(loginSuccess(token));
     }
   }, []);
-debugger
   return (
     <>
       <BrowserRouter>
         {/* <Home /> */}
         <Routes>
-          <Route
-            path="/"
-            element={
-              isAuthenticated ? (
-                <Navigate to="/home" />
-              ) : (
-                <LoginPage />
-              )
-            }
-          />
+          <Route path="/" element={isAuthenticated ? (<Navigate to="/home" />) : (<LoginPage />)}/>
           <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
           <Route path="/cart" element={isAuthenticated ? <Cart /> : <Navigate to="/" />} />
         </Routes>
